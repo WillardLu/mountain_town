@@ -3,9 +3,13 @@ find_package(GTest REQUIRED)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 add_executable(mountain_town_test
-  lib_test.cpp
+  mountain_town_test.cpp
+  math/random_test.cpp
   string/basic_test.cpp
-  ${PROJECT_SOURCE_DIR}/src/string/basic.cpp)
+  string/toml_test.cpp
+  ${PROJECT_SOURCE_DIR}/src/math/random.cpp
+  ${PROJECT_SOURCE_DIR}/src/string/basic.cpp
+  ${PROJECT_SOURCE_DIR}/src/string/toml.cpp)
 
 target_link_libraries(mountain_town_test
  PRIVATE

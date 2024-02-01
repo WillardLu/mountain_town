@@ -8,6 +8,6 @@
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
-  //::testing::GTEST_FLAG(filter) = "GeneralTests.*";  // 只测试GeneralTests
+  ::testing::GTEST_FLAG(filter) = "MathTests.*";
   return RUN_ALL_TESTS();
 }
