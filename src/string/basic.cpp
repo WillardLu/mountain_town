@@ -64,3 +64,25 @@ string RTrim(string ori, string str) {
 /// @param str 要去掉的字符串
 /// @return 处理后的字符串
 string Trim(string ori, string str) { return LTrim(RTrim(ori, str), str); }
+
+/// @brief 转换字符数组为string
+/// @param arr char数组
+/// @param arr_size char数组尺寸
+/// @param len 要转换的尺寸
+/// @param start 起始位置，默认为0
+/// @return 转换好的string
+string CharArrConvertToString(char *arr, int arr_size, int len, int start) {
+  if (start < 0 || start + len > arr_size) {
+    return "";
+  }
+  string res;
+  try {
+    for (int i = start; i < start + len; i++) {
+      res.append(1, arr[i]);
+    }
+  } catch (std::exception &e) {
+    cout << e.what() << endl;
+    return "";
+  }
+  return res;
+}

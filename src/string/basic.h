@@ -21,5 +21,6 @@ vector<string> SplitStr(string ori, string regex);
 string LTrim(string ori, string str);
 string RTrim(string ori, string str);
 string Trim(string ori, string str);
+string CharArrConvertToString(char *arr, int arr_size, int len, int start = 0);
 
 #endif  // STRING_BASIC_H_

@@ -30,14 +30,16 @@ string ReadSTOML(string file, std::unordered_map<string, string> &config) {
     return "Failed to read data.\n";
   }
   fp.close();
-  string ori = buffer;
+   // 直接赋值会造成内存泄漏
+  string ori = CharArrConvertToString(buffer, data_size, data_size);
   delete[] buffer;
 
   string table;
   string key;
   string value;
-  // 1. 按照“[”拆分字符串，分出表
-  vector<string> str1 = SplitStr(ori, "[");
+  // 1. 按照“\n[”拆分字符串，分出表
+  // 下面的语句特意在源字符串前加上换行符，是为了让第一行的表头也能被拆分。
+  vector<string> str1 = SplitStr("\n" + ori, "\n[");
   if (str1.size() <= 1) return "No content.";  // 没有内容
   for (auto substr1 = str1.begin() + 1; substr1 != str1.end(); ++substr1) {
     // 2. 按照“]”拆分字符串，分出表头与内容
@@ -54,12 +56,16 @@ string ReadSTOML(string file, std::unordered_map<string, string> &config) {
       for (auto substr3 = str3.begin(); substr3 != str3.end(); ++substr3) {
         // 4. 按照“=”拆分字符串，分出键名与键值
         string str_temp3 = Trim(*substr3, " ");
-        if (str_temp3.empty() == true) continue;  // 忽略空内容
+        // 忽略空内容与注释行
+        if (str_temp3.empty() == true || str_temp3[0] == '#') continue;
         vector<string> str4 = SplitStr(str_temp3, "=");
         if (str4[0].empty() == true) continue;  // 忽略空键名
         if (str4.size() != 2) continue;  // 键名与键值不成对的忽略
         key = Trim(str4[0], " ");
+        // 去掉左右的空格与双引号。对于字符串数组，最右边的双引号也会被去掉。
         value = Trim(Trim(str4[1], " "), "\"");
+        // 特别针对数组，去掉左中括号。右中括号已经在前面被去掉。
+        value = LTrim(value, "[");
         config[table + "." + key] = value;
       }
     }

@@ -75,3 +75,12 @@ TEST(BasicTests, Trim) {
   ASSERT_EQ(Trim("", " "), "");
   ASSERT_EQ(Trim(" 3.14", ""), " 3.14");
 }
+
+TEST(BasicTests, CharArrConvertToString) {
+  // 1. 普通测试
+  char arr1[] = "Hello";
+  ASSERT_EQ(CharArrConvertToString(arr1, 5, 5), "Hello");
+  ASSERT_EQ(CharArrConvertToString(arr1, 5, 2, 3), "lo");
+  // 2. 错误测试
+  ASSERT_EQ(CharArrConvertToString(arr1, 5, 3, 3), "");
+}
