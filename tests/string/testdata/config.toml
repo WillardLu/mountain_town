@@ -11,7 +11,14 @@ BatchSize = 100
 LearningRate = 0.01
 
 [nerual_network]
-# 神经网络模型
 model1 = [784, 50, 10]
-# 处理单元流
 processing_unit1 = ["FirstAffine", "Sigmoid", "Affine", "SoftmaxWithLoss"]
+steps = [
+  "convolution1",
+  "ReLU",
+  "Pooling1",
+  "Affine:100",
+  "ReLU",
+  "Affine:10",
+  "SoftmaxWithLoss"
+]

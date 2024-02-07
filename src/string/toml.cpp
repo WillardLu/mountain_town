@@ -45,7 +45,14 @@ string ReadSTOML(string file, std::unordered_map<string, string> &config) {
     // 2. 按照“]”拆分字符串，分出表头与内容
     string str_temp1 = Trim(*substr1, " ");
     if (str_temp1.empty() == true) continue;  // 忽略空内容
-    vector<string> str2 = SplitStr(str_temp1, "]");
+    // 数组也使用了中括号，会影响到后面的解析。对于内容都在一行的数组，后面的解析不会有影响，
+    // 对于内容较多且分行的内容会有影响，所以需要把多行表示的数组，调整成一行。
+    // 2.1 首先把各个条目调整为一行，把“,\n"替换成“,”
+    StrReplace(str_temp1, ",\n", ",");
+    // 2.2 把“[\n”替换成“[”，“\n]”替换成“]”
+    StrReplace(str_temp1, "[\n", "[");
+    StrReplace(str_temp1, "\n]", "]");
+    vector<string> str2 = SplitStr(str_temp1, "]\n");
     if (str1.size() <= 1) continue;  // 没有内容，跳过
     table = Trim(str2[0], " ");
     for (auto substr2 = str2.begin() + 1; substr2 != str2.end(); ++substr2) {
@@ -64,8 +71,9 @@ string ReadSTOML(string file, std::unordered_map<string, string> &config) {
         key = Trim(str4[0], " ");
         // 去掉左右的空格与双引号。对于字符串数组，最右边的双引号也会被去掉。
         value = Trim(Trim(str4[1], " "), "\"");
-        // 特别针对数组，去掉左中括号。右中括号已经在前面被去掉。
+        // 特别针对数组，去掉左中括号与空格。右中括号已经在前面被去掉。
         value = LTrim(value, "[");
+        value = Trim(value, " ");
         config[table + "." + key] = value;
       }
     }

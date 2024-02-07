@@ -16,6 +16,9 @@ TEST(TOMLTests, ReadSTOML) {
   ASSERT_EQ(config["nerual_network.model1"], "784, 50, 10");
   ASSERT_EQ(config["nerual_network.processing_unit1"],
             "\"FirstAffine\", \"Sigmoid\", \"Affine\", \"SoftmaxWithLoss");
+  string str1 = "\"convolution1\",  \"ReLU\",  \"Pooling1\",  \"Affine:100\",";
+  str1 += "  \"ReLU\",  \"Affine:10\",  \"SoftmaxWithLoss";
+  ASSERT_EQ(config["nerual_network.steps"], str1);
   // 错误测试
   ASSERT_NE(config["MNIST.train_label"], "data/train-images.idx3-ubyte");
   ASSERT_NE(config["hyper_parameters.Learning"], "0.001");
