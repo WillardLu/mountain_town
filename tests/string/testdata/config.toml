@@ -20,5 +20,5 @@ steps = [
   "Affine:100",
   "ReLU",
   "Affine:10",
-  "SoftmaxWithLoss"
+  "SoftmaxWithLoss",
 ]

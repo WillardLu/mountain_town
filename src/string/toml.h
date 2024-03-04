@@ -13,9 +13,12 @@
 
 #include "basic.h"
 
+using std::cout;
+using std::endl;
 using std::string;
 using std::vector;
 
 string ReadSTOML(string file, std::unordered_map<string, string> &config);
+void ReadSTOMLArr(string str, vector<string> &arr);
 
 #endif  // STRING_TOML_H_

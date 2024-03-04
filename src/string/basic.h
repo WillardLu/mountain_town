@@ -17,10 +17,12 @@ using std::string;
 using std::vector;
 
 void StrReplace(string &ori, const string &old_str, const string &new_str);
-vector<string> SplitStr(string ori, string regex);
+vector<string> SplitStr(string ori, string delim_str);
+vector<string> SplitStrRegex(string ori, string delim_str);
 string LTrim(string ori, string str);
 string RTrim(string ori, string str);
 string Trim(string ori, string str);
 string CharArrConvertToString(char *arr, int arr_size, int len, int start = 0);
+string ConvertToLowerCase(const string& str);
 
 #endif  // STRING_BASIC_H_

@@ -23,21 +23,51 @@ void StrReplace(string &ori, const string &old_str, const string &new_str) {
 /// @param ori 源字符串
 /// @param regex 分隔字符串
 /// @return 拆分后的字符串
-std::vector<std::string> SplitStr(string ori, string delimiter) {
-  size_t pos_start = 0, pos_end, delim_len = delimiter.length();
-  std::string token;
-  std::vector<std::string> res;
-  if (delimiter.empty() == true) {
+std::vector<std::string> SplitStr(string ori, string delim_str) {
+  size_t pos_start = 0;
+  size_t pos_end = delim_str.length();
+  size_t delim_len = delim_str.length();
+  string token;
+  vector<string> res;
+  // 当分隔字符串为空时返回内容也为空。有些拆分函数在这种情况下会把字符串拆分成单个的字符。
+  if (delim_str.empty() == true) {
     return res;
   }
 
-  while ((pos_end = ori.find(delimiter, pos_start)) != std::string::npos) {
+  while ((pos_end = ori.find(delim_str, pos_start)) != string::npos) {
     token = ori.substr(pos_start, pos_end - pos_start);
     pos_start = pos_end + delim_len;
+    if (token.empty() == true) {
+      continue;
+    }
     res.push_back(token);
   }
 
-  res.push_back(ori.substr(pos_start));
+  if (ori.substr(pos_start).empty() == false) {
+    res.push_back(ori.substr(pos_start));
+  }
+  return res;
+}
+
+/// @brief 使用正则表达式拆分字符串
+/// @param ori 源字符串
+/// @param delim_str 正则表达式
+/// @return 拆分后的字符串
+/// @remark 使用正则表达式来拆分字符串比使用简单的字符串拆分更方便灵活，但代价是增加了很多运算量，
+///         选用哪种方式来拆分应根据实际情况而定。
+vector<string> SplitStrRegex(string ori, string delim_str) {
+  std::regex delim{delim_str};
+  std::vector<string> res;
+  // 当分隔字符串为空时返回内容也为空。有些拆分函数在这种情况下会把字符串拆分成单个的字符。
+  if (delim_str.empty() == true) {
+    return res;
+  }
+  std::sregex_token_iterator end;
+  std::sregex_token_iterator iter(ori.begin(), ori.end(), delim, -1);
+  for (; iter != end; ++iter) {
+    string split(*iter);
+    if (split.size()) res.push_back(split);
+  }
   return res;
 }
 
@@ -85,4 +115,15 @@ string CharArrConvertToString(char *arr, int arr_size, int len, int start) {
     return "";
   }
   return res;
+}
+
+/// @brief 把字符串字母转换为小写字母
+/// @param str 源字符串
+/// @return 转换后的字符串
+string ConvertToLowerCase(const string &str) {
+  string result = "";
+  for (auto c : str) {
+    result += std::tolower(c);
+  }
+  return result;
 }

@@ -41,7 +41,7 @@ string ReadSTOML(string file, std::unordered_map<string, string> &config) {
   // 下面的语句特意在源字符串前加上换行符，是为了让第一行的表头也能被拆分。
   vector<string> str1 = SplitStr("\n" + ori, "\n[");
   if (str1.size() <= 1) return "No content.";  // 没有内容
-  for (auto substr1 = str1.begin() + 1; substr1 != str1.end(); ++substr1) {
+  for (auto substr1 = str1.begin(); substr1 != str1.end(); ++substr1) {
     // 2. 按照“]”拆分字符串，分出表头与内容
     string str_temp1 = Trim(*substr1, " ");
     if (str_temp1.empty() == true) continue;  // 忽略空内容
@@ -71,13 +71,28 @@ string ReadSTOML(string file, std::unordered_map<string, string> &config) {
         key = Trim(str4[0], " ");
         // 去掉左右的空格与双引号。对于字符串数组，最右边的双引号也会被去掉。
         value = Trim(Trim(str4[1], " "), "\"");
-        // 特别针对数组，去掉左中括号与空格。右中括号已经在前面被去掉。
+        // 特别针对数组，去掉中括号、空格与逗号
         value = LTrim(value, "[");
+        value = RTrim(value, "]");
         value = Trim(value, " ");
+        value = Trim(value, ",");
         config[table + "." + key] = value;
       }
     }
   }
 
   return "";
+}
+
+/// @brief 读取从TOML文件中获取的数组
+/// @param str 源数组字符串
+/// @param arr 数组
+void ReadSTOMLArr(string str, vector<string> &arr) {
+  // 按照逗号拆分
+  arr = SplitStr(str, ",");
+  for (auto substr1 = arr.begin(); substr1 != arr.end(); ++substr1) {
+    // 去掉两边的空格与双引号
+    *substr1 = Trim(*substr1, " ");
+    *substr1 = Trim(*substr1, "\"");
+  }
 }

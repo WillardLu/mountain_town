@@ -33,14 +33,31 @@ TEST(BasicTests, SplitStr) {
   vector<string> v1 = SplitStr("test,.b,.c", "");
   ASSERT_EQ(v1.size(), 0);
   vector<string> v2 = SplitStr("test,.b,.c", "t");
-  ASSERT_EQ(v2.size(), 3);
-  ASSERT_EQ(v2[0], "");
-  ASSERT_EQ(v2[1], "es");
-  ASSERT_EQ(v2[2], ",.b,.c");
+  ASSERT_EQ(v2.size(), 2);
+  ASSERT_EQ(v2[0], "es");
+  ASSERT_EQ(v2[1], ",.b,.c");
   vector<string> v3 = SplitStr("test,.b,.c", "c");
-  ASSERT_EQ(v3.size(), 2);
+  ASSERT_EQ(v3.size(), 1);
   ASSERT_EQ(v3[0], "test,.b,.");
-  ASSERT_EQ(v3[1], "");
+}
+
+TEST(BasicTests, SplitStrRegex) {
+  vector<string> v0 = SplitStrRegex("test.b,c.", "[.|,]");
+  // 1. 普通测试
+  ASSERT_EQ(v0.size(), 3);
+  ASSERT_EQ(v0[0], "test");
+  ASSERT_EQ(v0[1], "b");
+  ASSERT_EQ(v0[2], "c");
+  // 2. 边界测试
+  vector<string> v1 = SplitStrRegex("test.b,c.", "");
+  ASSERT_EQ(v1.size(), 0);
+  vector<string> v2 = SplitStrRegex("test,.b,.c", "[t]");
+  ASSERT_EQ(v2.size(), 2);
+  ASSERT_EQ(v2[0], "es");
+  ASSERT_EQ(v2[1], ",.b,.c");
+  vector<string> v3 = SplitStrRegex("test,.b,.c", "[c]");
+  ASSERT_EQ(v3.size(), 1);
+  ASSERT_EQ(v3[0], "test,.b,.");
 }
 
 TEST(BasicTests, LTrim) {
@@ -83,4 +100,10 @@ TEST(BasicTests, CharArrConvertToString) {
   ASSERT_EQ(CharArrConvertToString(arr1, 5, 2, 3), "lo");
   // 2. 错误测试
   ASSERT_EQ(CharArrConvertToString(arr1, 5, 3, 3), "");
+}
+
+TEST(BasicTests, ConvertToLowerCase) {
+  // 1. 普通测试
+  ASSERT_EQ(ConvertToLowerCase("You say goodbye and I say hello."),
+            "you say goodbye and i say hello.");
 }

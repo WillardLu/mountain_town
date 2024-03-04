@@ -17,8 +17,13 @@ TEST(TOMLTests, ReadSTOML) {
   ASSERT_EQ(config["nerual_network.processing_unit1"],
             "\"FirstAffine\", \"Sigmoid\", \"Affine\", \"SoftmaxWithLoss");
   string str1 = "\"convolution1\",  \"ReLU\",  \"Pooling1\",  \"Affine:100\",";
-  str1 += "  \"ReLU\",  \"Affine:10\",  \"SoftmaxWithLoss";
+  str1 += "  \"ReLU\",  \"Affine:10\",  \"SoftmaxWithLoss\"";
   ASSERT_EQ(config["nerual_network.steps"], str1);
+  vector<string> arr;
+  ReadSTOMLArr(config["nerual_network.steps"], arr);
+  ASSERT_EQ(arr.size(), 7);
+  ASSERT_EQ(arr[0], "convolution1");
+  ASSERT_EQ(arr[6], "SoftmaxWithLoss");
   // 错误测试
   ASSERT_NE(config["MNIST.train_label"], "data/train-images.idx3-ubyte");
   ASSERT_NE(config["hyper_parameters.Learning"], "0.001");
