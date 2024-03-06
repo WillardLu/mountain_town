@@ -7,9 +7,9 @@ add_executable(mountain_town_test
   math/random_test.cpp
   string/basic_test.cpp
   string/toml_test.cpp
-  ${PROJECT_SOURCE_DIR}/src/math/random.cpp
-  ${PROJECT_SOURCE_DIR}/src/string/basic.cpp
-  ${PROJECT_SOURCE_DIR}/src/string/toml.cpp)
+  ${PROJECT_SOURCE_DIR}/mountain_town/math/random.cpp
+  ${PROJECT_SOURCE_DIR}/mountain_town/string/basic.cpp
+  ${PROJECT_SOURCE_DIR}/mountain_town/string/toml.cpp)
 
 target_link_libraries(mountain_town_test
  PRIVATE
@@ -17,4 +17,4 @@ target_link_libraries(mountain_town_test
 
 target_include_directories(mountain_town_test
  PUBLIC
-  ${PROJECT_SOURCE_DIR}/src/)
+  ${PROJECT_SOURCE_DIR}/mountain_town/)
