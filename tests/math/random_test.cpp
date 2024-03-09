@@ -4,7 +4,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 #include <gtest/gtest.h>
-#include <math/random.h>
+#include <mountain_town/math/random.h>
 
 TEST(MathTests, BetterRand) {
   int rn[10] = {0};

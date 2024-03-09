@@ -15,4 +15,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 # 注意：在执行ctest命令时，需要进入build目录，而不是项目根目录。
 # 这里的测试内容与 add_test 设置有关。
 enable_testing()
+
 add_subdirectory(tests)

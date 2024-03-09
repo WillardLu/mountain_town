@@ -4,8 +4,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 #include <gtest/gtest.h>
-#include <string/basic.h>
-#include <string/toml.h>
+#include <mountain_town/string/basic.h>
+#include <mountain_town/string/toml.h>
 
 TEST(BasicTests, StrReplace) {
   std::unordered_map<string, string> testdata;
