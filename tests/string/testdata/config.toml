@@ -1,0 +1,25 @@
+[MNIST]
+train_img = "data/train-images.idx3-ubyte"
+train_label = "data/train-labels.idx1-ubyte"
+test_img = "data/t10k-images.idx3-ubyte"
+test_label = "data/t10k-labels.idx1-ubyte"
+
+# 超参数
+[hyper_parameters]
+Iterations = 10000
+BatchSize = 100
+LearningRate = 0.01
+
+# 神经网络
+[nerual_network]
+struct = ["Affine", "Sigmoid", "Affine", "SoftmaxWithLoss"]
+
+struct1 = [
+  "Affine",
+  "Sigmoid",
+  "Affine",
+  "Affine",
+  "Sigmoid",
+  "Affine",
+  "SoftmaxWithLoss",
+]

@@ -1,0 +1,9 @@
+[StrReplace]
+ori1 = "_domain = bds._base64.domain,   //base64图片服务域名"
+result1 = "_domain = bds._base64.domain,   //base64image服务域名"
+ori2 = "_domain = bds._base64.domain,   //base64图片服务域名"
+result2 = " = bds._base64.domain,   //base64image服务域名"
+ori3 = "//图片加载观察list，如果没有onload，进行容错"
+result3 = "//图片加载观察list，如果没有onload，进行报错"
+ori4 = "ab你c好"
+result4 = "ab你c好"

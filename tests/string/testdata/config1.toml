@@ -1,0 +1,2 @@
+[neural_network]
+struct = ["MatMul+MatMul:3", "MatMul:7", "SoftmaxWithLoss"]
